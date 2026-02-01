@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Franky Station - Billing</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: #fff;
+    padding: 10px;
+}
+
+h2 {
+    text-align: center;
+}
+
+.menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.menu button {
+    padding: 8px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.bill {
+    width: 300px;
+    margin: 20px auto;
+    border: 1px solid #000;
+    padding: 10px;
+}
+
+.center {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    font-size: 12px;
+}
+
+th, td {
+    padding: 4px;
+}
+
+.total {
+    font-weight: bold;
+}
+
+@media print {
+    .menu, .container h2, .clear { display: none; }
+    body { background: #fff; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Menu</h2>
+
+<div class="menu" id="menu"></div>
+
+<div class="bill">
+    <div class="center">
+        <h3>The Franky Station</h3>
+        <p>
+            Shop No-7, Ashirwad Apartment<br>
+            Near Gurudattreya Temple<br>
+            Jamnagar - 361008<br>
+            Mo. 9558882225
+        </p>
+    </div>
+
+    <hr>
+
+    <table id="billTable">
+        <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Amt</th>
+        </tr>
+    </table>
+
+    <hr>
+    <p class="total">Total: ₹ <span id="total">0</span></p>
+
+    <button onclick="window.print()">Print Bill</button>
+    <button class="clear" onclick="clearBill()">Clear Bill</button>
+</div>
+</div>
+
+<script>
+const items = [
+    // FRANKY
+    {name:"Cheese Chilli Paneer", price:120},
+    {name:"Cheesy Mad Mix", price:140},
+    {name:"Cheesy Garlic", price:120},
+    {name:"Paneer Delight", price:110},
+    {name:"Franky Station Special", price:160},
+    {name:"Veggie Delight", price:110},
+    {name:"Chatpata Paneer", price:120},
+    {name:"Paneer Makhani", price:140},
+    {name:"Pizza Punch", price:120},
+    {name:"Cheese Delight", price:130},
+    {name:"Cheesy Spicy Schezwan", price:140},
+    {name:"Cheese Blast", price:150},
+    {name:"Cheese Peri Peri", price:150},
+    {name:"Cheese Chilli Corn", price:130},
+    {name:"Cheesy Jalapeno", price:130},
+    {name:"Cheesy Wizy", price:140},
+    {name:"Smoky Barbecue", price:120},
+    {name:"Cheese Corn", price:120},
+    {name:"Smoky Tex Mex", price:120},
+    {name:"Tandoori Tadka", price:120},
+    {name:"Peppy Paneer", price:130},
+    {name:"Double Cheese Paneer", price:160},
+    {name:"Chipotle Cheese", price:160},
+    {name:"Triple Cheese", price:170},
+
+    // BURGER
+    {name:"Classic Veggie Burger", price:70},
+    {name:"Spicy Veggie Burger", price:80},
+    {name:"Double Cheese Burger", price:130},
+    {name:"Cheesy Jalapeno Burger", price:120},
+
+    // QUESADILLAS
+    {name:"Franky Station Sp. Quesadilla", price:200},
+    {name:"Cheese Chilli Paneer Quesadilla", price:200},
+    {name:"Cheesy Mad Mix Quesadilla", price:200},
+
+    // FRIES
+    {name:"Salted Fries", price:80},
+    {name:"Cheese Fries", price:130},
+    {name:"Peri Peri Fries", price:110},
+    {name:"Loaded BBQ Fries", price:140},
+
+    // COLD COFFEE
+    {name:"Cold Coffee", price:70},
+    {name:"Brownie Coffee", price:90},
+    {name:"Oreo Coffee", price:90},
+
+    // SHAKES
+    {name:"Chocolate Shake", price:120},
+    {name:"Strawberry Shake", price:120},
+    {name:"Oreo Shake", price:120},
+    {name:"Mango Shake", price:110},
+
+    // EXTRA
+    {name:"Cold Drink", price:20},
+    {name:"Small Water Bottle", price:10},
+    {name:"Big Water Bottle", price:20},
+    {name:"Extra Cheese Dip", price:20}
+];
+
+let cart = {};
+const menuDiv = document.getElementById("menu");
+const billTable = document.getElementById("billTable");
+const totalSpan = document.getElementById("total");
+
+items.forEach(item => {
+    const btn = document.createElement("button");
+    btn.innerText = `${item.name} - ₹${item.price}`;
+    btn.onclick = () => addItem(item);
+    menuDiv.appendChild(btn);
+});
+
+function addItem(item) {
+    if (!cart[item.name]) {
+        cart[item.name] = {qty:1, price:item.price};
+    } else {
+        cart[item.name].qty++;
+    }
+    renderBill();
+}
+
+function renderBill() {
+    billTable.innerHTML = `
+        <tr><th>Item</th><th>Qty</th><th>Amt</th></tr>
+    `;
+    let total = 0;
+    for (let name in cart) {
+        let amt = cart[name].qty * cart[name].price;
+        total += amt;
+        billTable.innerHTML += `
+            <tr>
+                <td>${name}</td>
+                <td>${cart[name].qty}</td>
+                <td>₹${amt}</td>
+            </tr>
+        `;
+    }
+    totalSpan.innerText = total;
+}
+
+function clearBill() {
+    cart = {};
+    renderBill();
+}
+</script>
+
+</body>
+</html>
