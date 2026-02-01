@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Franky Station | Billing</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f7f7f7; margin:0; padding:20px; }
+    h1, h2 { text-align:center; }
+    .card { background:#fff; border-radius:10px; padding:15px; box-shadow:0 4px 10px rgba(0,0,0,0.1); max-width:700px; margin:20px auto; }
+    label { font-weight:bold; }
+    input, select, button { width:100%; padding:10px; margin:6px 0 12px; border-radius:6px; border:1px solid #ccc; }
+    button { background:#111; color:#fff; border:none; cursor:pointer; }
+    button:hover { background:#333; }
+    table { width:100%; border-collapse:collapse; margin-top:10px; }
+    th, td { padding:6px; border-bottom:1px dashed #999; text-align:center; font-size:14px; }
+    .total { text-align:right; font-size:18px; font-weight:bold; margin-top:10px; }
+    .footer { text-align:center; color:#777; font-size:14px; margin-top:20px; }
+    @media print { body { background:#fff; } .card { box-shadow:none; border:none; } button, input, select { display:none; } }
+  </style>
+</head>
+<body>
+
+<h1>🍴 The Franky Station</h1>
+<h2>Bill Receipt</h2>
+<p style="text-align:center;font-size:13px;">
+  <strong>Date:</strong> <span id="billDate"></span> | <strong>Time:</strong> <span id="billTime"></span>
+</p>
+<p style="text-align:center;font-size:13px;line-height:1.4;">
+  Shop No-7, Ashirwad Apartment,<br>
+  Near Gurudattreya Temple,<br>
+  Jamnagar 361008<br>
+  <strong>Mo. 9558882225</strong>
+</p>
+<img src="logo.png" alt="The Franky Station" style="display:block;margin:10px auto;width:80px;">
+<h2>Mini Cafe Billing Software</h2>
+
+<div class="card">
+  <label>Bill No</label>
+  <input type="text" id="billNo" readonly />
+
+  <label>Customer Name</label>
+  <input type="text" id="customerName" placeholder="Optional" />
+
+  <label>Mobile Number</label>
+  <input type="tel" id="customerMobile" placeholder="Optional" />
+  <label>Item</label>
+  <select id="item">
+    <option value="">Select Item</option>
+
+    <optgroup label="Franky">
+      <option value="120">Cheese Chilli Paneer – ₹120</option>
+      <option value="140">Cheesy Mad Mix – ₹140</option>
+      <option value="120">Cheese Chilli Garlic – ₹120</option>
+      <option value="110">Paneer Delight – ₹110</option>
+      <option value="160">Franky Spl. Special – ₹160</option>
+      <option value="130">Cheese Kadaj Paneer – ₹130</option>
+      <option value="110">Veggie Delight – ₹110</option>
+      <option value="120">Chatpata Paneer – ₹120</option>
+      <option value="140">Paneer Makhani – ₹140</option>
+      <option value="120">Pizza Punch – ₹120</option>
+      <option value="140">Cheesy Spicy Shezwan – ₹140</option>
+      <option value="150">Cheese Blast – ₹150</option>
+      <option value="150">Cheese Peri Peri – ₹150</option>
+      <option value="150">Cheese Chilli Corn – ₹150</option>
+      <option value="130">Cheesy Jalapeno – ₹130</option>
+      <option value="140">Cheesy Wizzy – ₹140</option>
+      <option value="120">Smoky Barbecue – ₹120</option>
+      <option value="120">Cheese Corn – ₹120</option>
+      <option value="120">Burger Mish – ₹120</option>
+      <option value="130">Smoky Tex Mex – ₹130</option>
+      <option value="120">Tandoori Tadka – ₹120</option>
+      <option value="130">Pepper Paneer – ₹130</option>
+      <option value="140">Double Cheese Paneer – ₹140</option>
+      <option value="160">Chipotle Cheese – ₹160</option>
+      <option value="170">Triple Cheese – ₹170</option>
+    </optgroup>
+
+    <optgroup label="New Arrivals">
+      <option value="160">Chatpata Tandoori – ₹160</option>
+      <option value="140">Chilly Volcanic – ₹140</option>
+      <option value="160">Mumbai Masala – ₹160</option>
+      <option value="160">American Supreme – ₹160</option>
+      <option value="160">Cheesy Lava – ₹160</option>
+      <option value="130">Cheese Chilli Mint – ₹130</option>
+      <option value="150">Asian Spicy Delight – ₹150</option>
+      <option value="130">Tobasco Delight – ₹130</option>
+      <option value="130">Italian Touch – ₹130</option>
+      <option value="120">Yummy Mint – ₹120</option>
+      <option value="130">Crispy South West – ₹130</option>
+      <option value="130">Tangy Mexican Salsa – ₹130</option>
+      <option value="140">Crunchy Pizza Punch – ₹140</option>
+      <option value="140">Chilly Garlic Delight – ₹140</option>
+      <option value="120">Kids Special – ₹120</option>
+      <option value="130">Classic Indian – ₹130</option>
+    </optgroup>
+
+    <optgroup label="Burger">
+      <option value="70">Classic Veggie – ₹70</option>
+      <option value="80">Spicy Veggie – ₹80</option>
+      <option value="130">Double Cheese – ₹130</option>
+      <option value="120">Cheesy Jalapeno – ₹120</option>
+      <option value="90">Cheesy Peri Peri – ₹90</option>
+      <option value="80">Twist – ₹80</option>
+      <option value="80">Cheesy Chipotle – ₹80</option>
+      <option value="100">Franky Station Sp. – ₹100</option>
+      <option value="90">Chatpata Tandoori – ₹90</option>
+      <option value="80">Cheesy Spicy Shezwan – ₹80</option>
+      <option value="90">Spicy Paneer – ₹90</option>
+      <option value="120">American Cheesy Supreme – ₹120</option>
+      <option value="130">Cheesy Volcanic – ₹130</option>
+      <option value="120">Cheesy Lava – ₹120</option>
+    </optgroup>
+
+    <optgroup label="French Fries">
+      <option value="80">Salted Fries – ₹80</option>
+      <option value="130">Cheese Fries – ₹130</option>
+      <option value="110">Peri Peri Fries – ₹110</option>
+      <option value="130">Cheesy Italian Fries – ₹130</option>
+      <option value="140">Cheese Peri Peri Max Fries – ₹140</option>
+      <option value="140">Cheese Jalapeno Fries – ₹140</option>
+      <option value="130">Topical Fries – ₹130</option>
+      <option value="140">Tobasco Fries – ₹140</option>
+      <option value="140">Killer Garlic Fries – ₹140</option>
+      <option value="140">Loaded Barbecue Fries – ₹140</option>
+    </optgroup>
+
+    <optgroup label="Quesadillas">
+      <option value="200">Franky Station Sp. – ₹200</option>
+      <option value="200">Cheese Chilli Paneer – ₹200</option>
+      <option value="200">Cheesy Mad Mix – ₹200</option>
+      <option value="200">Pizza Punch – ₹200</option>
+      <option value="200">Paneer Makhani – ₹200</option>
+      <option value="200">Cheesy Wizzy – ₹200</option>
+    </optgroup>
+
+    <optgroup label="Cold Coffee">
+      <option value="70">Cold Coffee – ₹70</option>
+      <option value="90">Brownvita Coffee – ₹90</option>
+      <option value="90">Oreo Coffee – ₹90</option>
+    </optgroup>
+
+    <optgroup label="Shake">
+      <option value="120">Chocolate – ₹120</option>
+      <option value="120">Strawberry – ₹120</option>
+      <option value="120">Oreo – ₹120</option>
+      <option value="130">KitKat – ₹130</option>
+      <option value="110">Mango – ₹110</option>
+      <option value="110">Pineapple – ₹110</option>
+    </optgroup>
+
+    <optgroup label="Extras">
+      <option value="20">Extra Cheese Dip – ₹20</option>
+    </optgroup>
+  </select>
+
+  <label>Quantity</label>
+  <input type="number" id="qty" min="1" value="1" />
+
+  <button onclick="addItem()">Add Item</button>
+
+  <table id="billTable">
+    <tr>
+      <th>Item</th>
+      <th>Qty</th>
+      <th>Price (₹)</th>
+      <th>Total (₹)</th>
+      <th>❌</th>
+    </tr>
+  </table>
+
+  <div class="total">Grand Total: ₹ <span id="grandTotal">0</span></div>
+<p style="text-align:center;margin-top:15px;font-size:14px;">
+  🙏 <strong>Thank you for visiting The Franky Station!</strong><br>
+  Please visit again 😊
+</p>
+
+  <button onclick="saveBill()">Save Bill</button>
+  <button onclick="printBill()">Print Bill</button>
+  <button id="installBtn" style="display:none;">Install App</button>
+</div>
+
+<div class="card">
+  <h3>Reports</h3>
+  <label>Select Date</label>
+  <input type="date" id="reportDate" />
+  <button onclick="viewDateReport()">View Date Report</button>
+
+  <label>Select Month</label>
+  <input type="month" id="reportMonth" />
+  <button onclick="viewMonthReport()">View Monthly Report</button>
+
+  <button onclick="downloadReport()">Download Report (CSV)</button>
+
+  <p>Total Bills: <span id="billCount">0</span></p>
+  <p>Total Sales: ₹ <span id="dailySales">0</span></p>
+</div>
+
+<div class="footer">© 2026 The Franky Station</div>
+
+<script>
+  let grandTotal = 0;
+  let billCount = localStorage.getItem('billCount') || 0;
+  let dailySales = localStorage.getItem('dailySales') || 0;
+  let billNo = localStorage.getItem('billNo') || 1;
+
+  const now = new Date();
+  document.getElementById('billDate').innerText = now.toLocaleDateString('en-IN');
+  document.getElementById('billTime').innerText = now.toLocaleTimeString('en-IN');
+
+  document.getElementById('billCount').innerText = billCount;
+  document.getElementById('dailySales').innerText = dailySales;
+  document.getElementById('billNo').value = billNo;
+
+  function addItem() {
+    const itemSelect = document.getElementById('item');
+    const price = Number(itemSelect.value);
+    const itemName = itemSelect.options[itemSelect.selectedIndex].text;
+    const qty = Number(document.getElementById('qty').value);
+    if (!price || qty <= 0) return alert('Select item and quantity');
+    const total = price * qty;
+    grandTotal += total;
+    const table = document.getElementById('billTable');
+    const row = table.insertRow();
+    row.insertCell(0).innerText = itemName.split('–')[0];
+    row.insertCell(1).innerText = qty;
+    row.insertCell(2).innerText = price;
+    row.insertCell(3).innerText = total;
+    const del = row.insertCell(4);
+    del.innerHTML = '❌';
+    del.onclick = () => { grandTotal -= total; document.getElementById('grandTotal').innerText = grandTotal; row.remove(); };
+    document.getElementById('grandTotal').innerText = grandTotal;
+  }
+
+  function saveBill() {
+    if (grandTotal === 0) return alert('No items added');
+    const today = new Date().toISOString().split('T')[0];
+    let salesData = JSON.parse(localStorage.getItem('salesData') || '{}');
+    if (!salesData[today]) salesData[today] = { bills: 0, total: 0 };
+    salesData[today].bills += 1;
+    salesData[today].total += grandTotal;
+    localStorage.setItem('salesData', JSON.stringify(salesData));
+    billCount++; dailySales = Number(dailySales) + grandTotal;
+    localStorage.setItem('billCount', billCount);
+    localStorage.setItem('dailySales', dailySales);
+    billNo++; localStorage.setItem('billNo', billNo);
+    alert('Bill Saved'); location.reload();
+  }
+
+  function printBill() { window.print(); }
+
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault(); deferredPrompt = e;
+    document.getElementById('installBtn').style.display = 'block';
+  });
+
+  document.getElementById('installBtn').addEventListener('click', () => {
+    deferredPrompt.prompt(); deferredPrompt.userChoice.then(() => deferredPrompt = null);
+  });
+</script>
+
+</body>
+</html>
